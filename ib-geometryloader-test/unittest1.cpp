@@ -13,7 +13,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderCubeNumOfVertices)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\cube.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\cube.obj");
 			Assert::AreEqual(8, geometryLoader->getNumOfVertices());
 			delete geometryLoader;
 		}
@@ -21,7 +21,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderCubeNumOfNormals)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\cube.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\cube.obj");
 			Assert::AreEqual(6, geometryLoader->getNumOfNormals());
 			delete geometryLoader;
 		}
@@ -29,7 +29,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderCubeNumOfIndices)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\cube.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\cube.obj");
 			Assert::AreEqual(36, geometryLoader->getNumOfIndices());
 			delete geometryLoader;
 		}
@@ -37,7 +37,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(WilliamsCubeNumOfVertices)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\cube.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\cube.obj");
 			Assert::AreEqual(8, geometryLoader->getNumOfVertices());
 			delete geometryLoader;
 		}
@@ -45,7 +45,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(WilliamsCubeNumOfNormals)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\cube.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\cube.obj");
 			Assert::AreEqual(6, geometryLoader->getNumOfNormals());
 			delete geometryLoader;
 		}
@@ -53,7 +53,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(WilliamsCubeNumOfIndices)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\cube.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\cube.obj");
 			Assert::AreEqual(36, geometryLoader->getNumOfIndices());
 			delete geometryLoader;
 		}
@@ -164,7 +164,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderMonkeyIntegrity)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\uber_monkey.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\uber_monkey.obj");
 			Assert::AreEqual(7958, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(15731, geometryLoader->getNumOfNormals());
 			Assert::AreEqual(47232, geometryLoader->getNumOfIndices());
@@ -174,7 +174,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderFuturisticCarIntegrity)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\futuristic_car.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\futuristic_car.obj");
 			Assert::AreEqual(4850, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(3652, geometryLoader->getNumOfNormals());
 			Assert::AreEqual(26916, geometryLoader->getNumOfIndices());
@@ -184,7 +184,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderMinecraftIntegrity)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\minecraft.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\minecraft.obj");
 			Assert::AreEqual(156841, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(0, geometryLoader->getNumOfNormals());
 			Assert::AreEqual(742434, geometryLoader->getNumOfIndices());
@@ -194,7 +194,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(BlenderF15Integrity)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\f15.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\f15.obj");
 			Assert::AreEqual(48421, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(0, geometryLoader->getNumOfNormals());
 			Assert::AreEqual(136980, geometryLoader->getNumOfIndices());
@@ -204,7 +204,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(Cinema4DCastleIntegrity)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\castle.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\castle.obj");
 			Assert::AreEqual(28348, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(0, geometryLoader->getNumOfNormals());
 			Assert::AreEqual(142776, geometryLoader->getNumOfIndices());
@@ -214,7 +214,7 @@ namespace ibgeometryloadertest
 		TEST_METHOD(Max3DSInteriorIntegrity)
 		{
 			IGeometryLoader* geometryLoader = CreateGeometryLoader();
-			geometryLoader->loadFromFile("..\\Debug\\geometry\\interior.obj");
+			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\interior.obj");
 			Assert::AreEqual(108156, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(484448, geometryLoader->getNumOfNormals());
 			Assert::AreEqual(645144, geometryLoader->getNumOfIndices());
