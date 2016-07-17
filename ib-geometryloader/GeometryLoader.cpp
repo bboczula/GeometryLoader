@@ -159,8 +159,8 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 	std::vector<std::size_t> texturePosition;
 	std::vector<std::string> vertexIndex;
 	std::vector<std::string> normalIndex;
+	std::vector<std::string> textureIndex;
 
-	int i = 0;
 	int numOfVertices = vertices.size();
 	for each (auto triplet in triplets)
 	{
@@ -172,32 +172,39 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 		}
 		else
 		{
-			indexPosition.push_back(triplet.find('/'));
-			texturePosition.push_back(triplet.find('/', indexPosition[i] + 1));
-			vertexIndex.push_back(triplet.substr(0, indexPosition[i]));
+			std::istringstream tripletStream;
+			tripletStream.str(triplet);
+			
+			std::string temp;
+			std::vector<std::string> another;
+			another.reserve(3);
+			while (std::getline(tripletStream, temp, '/'))
+			{
+				another.push_back(temp);
+			}
 
-			numOfSlashes = std::count(triplet.begin(), triplet.end(), '/');
-			if (numOfSlashes == 1)
+			switch (another.size())
 			{
-				// This is allowed, no normal, just texture
-			}
-			if (numOfSlashes == 2)
-			{
-				normalIndex.push_back(triplet.substr(texturePosition[i] + 1, triplet.size() - texturePosition[i] + 1));
-			}
-			if (numOfSlashes > 2 || numOfSlashes < 1)
-			{
-				std::cout << "WARNING: invalid format of face component of OBJ file" << std::endl;
+			case 3:
+				if (!another[2].empty())
+					normalIndex.push_back(another[2]);
+			case 2:
+				if (!another[1].empty())
+					textureIndex.push_back(another[1]);
+			case 1:
+				if (!another[0].empty())
+					vertexIndex.push_back(another[0]);
+			default:
+				break;
 			}
 		}
-		i++;
 	}
 
 	addIndex(std::stoi(vertexIndex[0]) - 1);
 	addIndex(std::stoi(vertexIndex[1]) - 1);
 	addIndex(std::stoi(vertexIndex[2]) - 1);
 	
-	if (numOfSlashes == 2)
+	if (!normalIndex.empty())
 	{
 		addNormalIndex(std::stoi(normalIndex[0]) - 1);
 		addNormalIndex(std::stoi(normalIndex[1]) - 1);
@@ -209,7 +216,7 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 		addIndex(std::stoi(vertexIndex[0]) - 1);
 		addIndex(std::stoi(vertexIndex[3]) - 1);
 
-		if (numOfSlashes == 2)
+		if (!normalIndex.empty())
 		{
 			addNormalIndex(std::stoi(normalIndex[2]) - 1);
 			addNormalIndex(std::stoi(normalIndex[0]) - 1);
@@ -218,6 +225,7 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 		
 	}
 }
+
 void GeometryLoader::vertexHandler(std::vector<std::string>& tokens)
 {
 	addVertex(FLOAT3{ std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2]) });
@@ -242,9 +250,15 @@ int GeometryLoader::getNumOfNormals()
 }
 
 
-int GeometryLoader::getNumOfIndices()
+int GeometryLoader::getNumOfVertexIndices()
 {
 	return indices.size();
+}
+
+
+int GeometryLoader::getNumOfNormalIndices()
+{
+	return normalIndices.size();
 }
 
 

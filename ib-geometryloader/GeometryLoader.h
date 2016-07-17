@@ -27,7 +27,8 @@ public:
 	void printIndices();
 	virtual int getNumOfVertices();
 	virtual int getNumOfNormals();
-	virtual int getNumOfIndices();
+	virtual int getNumOfVertexIndices();
+	virtual int getNumOfNormalIndices();
 	virtual void parse(std::string& input);
 	virtual FLOAT3 vertexAt(int i);
 	virtual FLOAT3 normalAt(int i);

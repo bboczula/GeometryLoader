@@ -29,7 +29,8 @@ public:
 	virtual void parse(std::string& input) = 0;
 	virtual int getNumOfVertices() = 0;
 	virtual int getNumOfNormals() = 0;
-	virtual int getNumOfIndices() = 0;
+	virtual int getNumOfVertexIndices() = 0;
+	virtual int getNumOfNormalIndices() = 0;
 	virtual FLOAT3 vertexAt(int i) = 0;
 	virtual FLOAT3 normalAt(int i) = 0;
 	virtual int vertexIndexAt(int i) = 0;
