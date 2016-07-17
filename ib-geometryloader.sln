@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ib-geometryloader", "ib-geometryloader\ib-geometryloader.vcxproj", "{7C98126B-1377-4270-8855-65785071DADE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ib-geometryloader-ref", "ib-geometryloader-ref\ib-geometryloader-ref.vcxproj", "{265E0814-D2D2-43E6-9B8D-84E56D25AC3C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ib-geometryloader-test", "ib-geometryloader-test\ib-geometryloader-test.vcxproj", "{951FADF0-A290-4E8E-BD1A-4E10907648C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C98126B-1377-4270-8855-65785071DADE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C98126B-1377-4270-8855-65785071DADE}.Debug|Win32.Build.0 = Debug|Win32
+		{7C98126B-1377-4270-8855-65785071DADE}.Release|Win32.ActiveCfg = Release|Win32
+		{7C98126B-1377-4270-8855-65785071DADE}.Release|Win32.Build.0 = Release|Win32
+		{265E0814-D2D2-43E6-9B8D-84E56D25AC3C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{265E0814-D2D2-43E6-9B8D-84E56D25AC3C}.Debug|Win32.Build.0 = Debug|Win32
+		{265E0814-D2D2-43E6-9B8D-84E56D25AC3C}.Release|Win32.ActiveCfg = Release|Win32
+		{265E0814-D2D2-43E6-9B8D-84E56D25AC3C}.Release|Win32.Build.0 = Release|Win32
+		{951FADF0-A290-4E8E-BD1A-4E10907648C6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{951FADF0-A290-4E8E-BD1A-4E10907648C6}.Debug|Win32.Build.0 = Debug|Win32
+		{951FADF0-A290-4E8E-BD1A-4E10907648C6}.Release|Win32.ActiveCfg = Release|Win32
+		{951FADF0-A290-4E8E-BD1A-4E10907648C6}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal
