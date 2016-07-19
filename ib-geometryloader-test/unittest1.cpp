@@ -200,6 +200,7 @@ namespace ibgeometryloadertest
 			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\uber_monkey.obj");
 			Assert::AreEqual(7958, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(15731, geometryLoader->getNumOfNormals());
+			Assert::AreEqual(0, geometryLoader->getNumOfTexCoords());
 			Assert::AreEqual(47232, geometryLoader->getNumOfVertexIndices());
 		}
 
@@ -208,6 +209,7 @@ namespace ibgeometryloadertest
 			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\futuristic_car.obj");
 			Assert::AreEqual(4850, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(3652, geometryLoader->getNumOfNormals());
+			Assert::AreEqual(3748, geometryLoader->getNumOfTexCoords());
 			Assert::AreEqual(26916, geometryLoader->getNumOfVertexIndices());
 		}
 
@@ -216,6 +218,7 @@ namespace ibgeometryloadertest
 			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\minecraft.obj");
 			Assert::AreEqual(156841, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(0, geometryLoader->getNumOfNormals());
+			Assert::AreEqual(100, geometryLoader->getNumOfTexCoords());
 			Assert::AreEqual(742434, geometryLoader->getNumOfVertexIndices());
 		}
 
@@ -224,6 +227,7 @@ namespace ibgeometryloadertest
 			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\f15.obj");
 			Assert::AreEqual(48421, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(0, geometryLoader->getNumOfNormals());
+			Assert::AreEqual(48421, geometryLoader->getNumOfTexCoords());
 			Assert::AreEqual(136980, geometryLoader->getNumOfVertexIndices());
 		}
 
@@ -232,6 +236,7 @@ namespace ibgeometryloadertest
 			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\castle.obj");
 			Assert::AreEqual(28348, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(0, geometryLoader->getNumOfNormals());
+			Assert::AreEqual(55992, geometryLoader->getNumOfTexCoords());
 			Assert::AreEqual(142776, geometryLoader->getNumOfVertexIndices());
 		}
 
@@ -240,7 +245,66 @@ namespace ibgeometryloadertest
 			geometryLoader->loadFromFile("..\\ib-geometryloader-res\\interior.obj");
 			Assert::AreEqual(108156, geometryLoader->getNumOfVertices());
 			Assert::AreEqual(484448, geometryLoader->getNumOfNormals());
+			Assert::AreEqual(126214, geometryLoader->getNumOfTexCoords());
 			Assert::AreEqual(645144, geometryLoader->getNumOfVertexIndices());
+		}
+	};
+
+	TEST_CLASS(TextureSupport)
+	{
+		IGeometryLoader* geometryLoader;
+
+		TEST_METHOD_INITIALIZE(SetupGeometryLoader)
+		{
+			geometryLoader = CreateGeometryLoader();
+		}
+
+		TEST_METHOD_CLEANUP(CleanupGeometryLoader)
+		{
+			if (geometryLoader)
+				delete geometryLoader;
+		}
+
+		TEST_METHOD(BasicTextureProcessing)
+		{
+			std::vector<std::string> input;
+			input.push_back({ "v 0.500 0.500 0.500" });
+			input.push_back({ "v 0.500 -0.500 0.500" });
+			input.push_back({ "v -1 0.500 0.500" });
+			input.push_back({ "v 0.000000 0.000000 -1.000000" });
+			input.push_back({ "v 0 0 -1" });
+			input.push_back({ "v 0.999999 99.999999 99999.000000" });
+			input.push_back({ "vt 1.0 1.0" });
+			input.push_back({ "vt 1.0 0.0" });
+			input.push_back({ "vt 0.0 0.0" });
+			input.push_back({ "f 1/2/3 2/3/4 3/4/5" });
+			input.push_back({ "f 1//3 2//4 3//5" });
+			input.push_back({ "f 1/11 2/22 3/33" });
+
+			for (auto s : input)
+				geometryLoader->parse(s);
+
+			Assert::AreEqual(6, geometryLoader->getNumOfVertices());
+			Assert::AreEqual(3, geometryLoader->getNumOfTexCoords());
+
+			FLOAT2 texCoord = geometryLoader->texCoordAt(0);
+			Assert::AreEqual(1.0f, texCoord.x);
+			Assert::AreEqual(1.0f, texCoord.y);
+
+			FLOAT2 texCoord1 = geometryLoader->texCoordAt(1);
+			Assert::AreEqual(1.0f, texCoord1.x);
+			Assert::AreEqual(0.0f, texCoord1.y);
+
+			FLOAT2 texCoord2 = geometryLoader->texCoordAt(2);
+			Assert::AreEqual(0.0f, texCoord2.x);
+			Assert::AreEqual(0.0f, texCoord2.y);
+
+			Assert::AreEqual(1, geometryLoader->textureIndexAt(0));
+			Assert::AreEqual(2, geometryLoader->textureIndexAt(1));
+			Assert::AreEqual(3, geometryLoader->textureIndexAt(2));
+			Assert::AreEqual(10, geometryLoader->textureIndexAt(3));
+			Assert::AreEqual(21, geometryLoader->textureIndexAt(4));
+			Assert::AreEqual(32, geometryLoader->textureIndexAt(5));
 		}
 	};
 }

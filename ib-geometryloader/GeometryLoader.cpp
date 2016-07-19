@@ -49,6 +49,8 @@ void GeometryLoader::parse(std::string& input)
 	case EKeyword::FACE:
 		faceHandler(tokens);
 		break;
+	case EKeyword::TEXCOORD:
+		textureHandler(tokens);
 	default:
 		break;
 	}
@@ -62,6 +64,8 @@ EKeyword GeometryLoader::translate(std::string keyword)
 		return EKeyword::NORMAL;
 	else if (keyword.compare("f") == 0)
 		return EKeyword::FACE;
+	else if (keyword.compare("vt") == 0)
+		return EKeyword::TEXCOORD;
 	return EKeyword::UNDEFINED;
 }
 
@@ -75,6 +79,11 @@ void GeometryLoader::addNormal(FLOAT3 normal)
 	normals.push_back(normal);
 }
 
+void GeometryLoader::addTextureCoordinate(FLOAT2 texture)
+{
+	textureCoordinates.push_back(texture);
+}
+
 void GeometryLoader::addIndex(short index)
 {
 	indices.push_back(index);
@@ -83,6 +92,11 @@ void GeometryLoader::addIndex(short index)
 void GeometryLoader::addNormalIndex(short normalIndex)
 {
 	normalIndices.push_back(normalIndex);
+}
+
+void GeometryLoader::addTextureIndex(short textureIndex)
+{
+	textureIndices.push_back(textureIndex);
 }
 
 void GeometryLoader::loadFromFile(std::string filename)
@@ -95,7 +109,9 @@ void GeometryLoader::loadFromFile(std::string filename)
 		{
 			parse(line);
 		}
-		std::cout << "loaded " << filename << ": vertices = " << vertices.size() << ", indexes = " << indices.size() << ", normals = " << normals.size() << std::endl;
+		std::cout << "loaded " << filename << ": vertices = " << vertices.size()
+			<< ", indexes = " << indices.size() << ", normals = " << normals.size()
+			<< ", textureCoordinates = " << textureCoordinates.size() << std::endl;
 		objFile.close();
 	}
 	else
@@ -210,6 +226,14 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 		addNormalIndex(std::stoi(normalIndex[1]) - 1);
 		addNormalIndex(std::stoi(normalIndex[2]) - 1);
 	}
+
+	if (!textureIndex.empty())
+	{
+		addTextureIndex(std::stoi(textureIndex[0]) - 1);
+		addTextureIndex(std::stoi(textureIndex[1]) - 1);
+		addTextureIndex(std::stoi(textureIndex[2]) - 1);
+	}
+
 	if (triplets.size() == 4)
 	{
 		addIndex(std::stoi(vertexIndex[2]) - 1);
@@ -221,6 +245,13 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 			addNormalIndex(std::stoi(normalIndex[2]) - 1);
 			addNormalIndex(std::stoi(normalIndex[0]) - 1);
 			addNormalIndex(std::stoi(normalIndex[3]) - 1);
+		}
+
+		if (!textureIndex.empty())
+		{
+			addTextureIndex(std::stoi(textureIndex[2]) - 1);
+			addTextureIndex(std::stoi(textureIndex[0]) - 1);
+			addTextureIndex(std::stoi(textureIndex[3]) - 1);
 		}
 		
 	}
@@ -238,6 +269,12 @@ void GeometryLoader::normalHandler(std::vector<std::string>& tokens)
 }
 
 
+void GeometryLoader::textureHandler(std::vector<std::string>& tokens)
+{
+	addTextureCoordinate(FLOAT2{ std::stof(tokens[0]), std::stof(tokens[1]) });
+}
+
+
 int GeometryLoader::getNumOfVertices()
 {
 	return vertices.size();
@@ -247,6 +284,12 @@ int GeometryLoader::getNumOfVertices()
 int GeometryLoader::getNumOfNormals()
 {
 	return normals.size();
+}
+
+
+int GeometryLoader::getNumOfTexCoords()
+{
+	return textureCoordinates.size();
 }
 
 
@@ -283,4 +326,16 @@ int GeometryLoader::vertexIndexAt(int i)
 int GeometryLoader::normalIndexAt(int i)
 {
 	return normalIndices[i];
+}
+
+
+int GeometryLoader::textureIndexAt(int i)
+{
+	return textureIndices[i];
+}
+
+
+FLOAT2 GeometryLoader::texCoordAt(int i)
+{
+	return textureCoordinates[i];
 }
