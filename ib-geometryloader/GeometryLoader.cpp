@@ -15,6 +15,27 @@ GeometryLoader::~GeometryLoader()
 {
 }
 
+void GeometryLoader::loadFromFile(std::string filename)
+{
+	std::string line;
+	std::ifstream objFile(filename);
+	if (objFile.is_open())
+	{
+		while (std::getline(objFile, line))
+		{
+			parse(line);
+		}
+		std::cout << "loaded " << filename << ": vertices = " << vertices.size()
+			<< ", indexes = " << indices.size() << ", normals = " << normals.size()
+			<< ", textureCoordinates = " << textureCoordinates.size() << std::endl;
+		objFile.close();
+	}
+	else
+	{
+		std::cout << "ERROR: cannot open a file\n";
+	}
+}
+
 void GeometryLoader::parse(std::string& input)
 {
 	std::istringstream stream(input);
@@ -69,81 +90,6 @@ EKeyword GeometryLoader::translate(std::string keyword)
 	return EKeyword::UNDEFINED;
 }
 
-void GeometryLoader::addVertex(FLOAT3 vertex)
-{
-	vertices.push_back(vertex);
-}
-
-void GeometryLoader::addNormal(FLOAT3 normal)
-{
-	normals.push_back(normal);
-}
-
-void GeometryLoader::addTextureCoordinate(FLOAT2 texture)
-{
-	textureCoordinates.push_back(texture);
-}
-
-void GeometryLoader::addIndex(short index)
-{
-	indices.push_back(index);
-}
-
-void GeometryLoader::addNormalIndex(short normalIndex)
-{
-	normalIndices.push_back(normalIndex);
-}
-
-void GeometryLoader::addTextureIndex(short textureIndex)
-{
-	textureIndices.push_back(textureIndex);
-}
-
-void GeometryLoader::loadFromFile(std::string filename)
-{
-	std::string line;
-	std::ifstream objFile(filename);
-	if (objFile.is_open())
-	{
-		while (std::getline(objFile, line))
-		{
-			parse(line);
-		}
-		std::cout << "loaded " << filename << ": vertices = " << vertices.size()
-			<< ", indexes = " << indices.size() << ", normals = " << normals.size()
-			<< ", textureCoordinates = " << textureCoordinates.size() << std::endl;
-		objFile.close();
-	}
-	else
-	{
-		std::cout << "ERROR: cannot open a file\n";
-	}
-}
-
-void GeometryLoader::printVertices()
-{
-	for each (auto vertex in vertices)
-	{
-		std::cout << "v" << vertex << std::endl;
-	}
-}
-
-void GeometryLoader::printNormals()
-{
-	for each(auto normal in normals)
-	{
-		std::cout << "vn" << normal << std::endl;
-	}
-}
-
-void GeometryLoader::printIndices()
-{
-	for each(auto index in indices)
-	{
-		std::cout << "f " << index << "//" << std::endl;
-	}
-}
-
 void GeometryLoader::faceHandler(std::vector<std::string>& tokens)
 {
 	int numOfIndices = tokens.size();
@@ -190,7 +136,7 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 		{
 			std::istringstream tripletStream;
 			tripletStream.str(triplet);
-			
+
 			std::string temp;
 			std::vector<std::string> another;
 			another.reserve(3);
@@ -219,7 +165,7 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 	addIndex(std::stoi(vertexIndex[0]) - 1);
 	addIndex(std::stoi(vertexIndex[1]) - 1);
 	addIndex(std::stoi(vertexIndex[2]) - 1);
-	
+
 	if (!normalIndex.empty())
 	{
 		addNormalIndex(std::stoi(normalIndex[0]) - 1);
@@ -253,7 +199,7 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 			addTextureIndex(std::stoi(textureIndex[0]) - 1);
 			addTextureIndex(std::stoi(textureIndex[3]) - 1);
 		}
-		
+
 	}
 }
 
@@ -262,78 +208,119 @@ void GeometryLoader::vertexHandler(std::vector<std::string>& tokens)
 	addVertex(FLOAT3{ std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2]) });
 }
 
-
 void GeometryLoader::normalHandler(std::vector<std::string>& tokens)
 {
 	addNormal(FLOAT3{ std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2]) });
 }
-
 
 void GeometryLoader::textureHandler(std::vector<std::string>& tokens)
 {
 	addTextureCoordinate(FLOAT2{ std::stof(tokens[0]), std::stof(tokens[1]) });
 }
 
+void GeometryLoader::addVertex(FLOAT3 vertex)
+{
+	vertices.push_back(vertex);
+}
+
+void GeometryLoader::addNormal(FLOAT3 normal)
+{
+	normals.push_back(normal);
+}
+
+void GeometryLoader::addTextureCoordinate(FLOAT2 texture)
+{
+	textureCoordinates.push_back(texture);
+}
+
+void GeometryLoader::addIndex(short index)
+{
+	indices.push_back(index);
+}
+
+void GeometryLoader::addNormalIndex(short normalIndex)
+{
+	normalIndices.push_back(normalIndex);
+}
+
+void GeometryLoader::addTextureIndex(short textureIndex)
+{
+	textureIndices.push_back(textureIndex);
+}
+
+void GeometryLoader::printVertices()
+{
+	for each (auto vertex in vertices)
+	{
+		std::cout << "v" << vertex << std::endl;
+	}
+}
+
+void GeometryLoader::printNormals()
+{
+	for each(auto normal in normals)
+	{
+		std::cout << "vn" << normal << std::endl;
+	}
+}
+
+void GeometryLoader::printIndices()
+{
+	for each(auto index in indices)
+	{
+		std::cout << "f " << index << "//" << std::endl;
+	}
+}
 
 int GeometryLoader::getNumOfVertices()
 {
 	return vertices.size();
 }
 
-
 int GeometryLoader::getNumOfNormals()
 {
 	return normals.size();
 }
-
 
 int GeometryLoader::getNumOfTexCoords()
 {
 	return textureCoordinates.size();
 }
 
-
 int GeometryLoader::getNumOfVertexIndices()
 {
 	return indices.size();
 }
-
 
 int GeometryLoader::getNumOfNormalIndices()
 {
 	return normalIndices.size();
 }
 
-
 FLOAT3 GeometryLoader::vertexAt(int i)
 {
 	return vertices[i];
 }
-
 
 FLOAT3 GeometryLoader::normalAt(int i)
 {
 	return normals[i];
 }
 
-
 int GeometryLoader::vertexIndexAt(int i)
 {
 	return indices[i];
 }
-
 
 int GeometryLoader::normalIndexAt(int i)
 {
 	return normalIndices[i];
 }
 
-
 int GeometryLoader::textureIndexAt(int i)
 {
 	return textureIndices[i];
 }
-
 
 FLOAT2 GeometryLoader::texCoordAt(int i)
 {
