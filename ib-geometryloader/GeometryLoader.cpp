@@ -25,9 +25,7 @@ void GeometryLoader::loadFromFile(std::string filename)
 		{
 			parse(line);
 		}
-		std::cout << "loaded " << filename << ": vertices = " << vertices.size()
-			<< ", indexes = " << indices.size() << ", normals = " << normals.size()
-			<< ", textureCoordinates = " << textureCoordinates.size() << std::endl;
+		printStatistics(filename);
 		objFile.close();
 	}
 	else
@@ -216,6 +214,13 @@ void GeometryLoader::normalHandler(std::vector<std::string>& tokens)
 void GeometryLoader::textureHandler(std::vector<std::string>& tokens)
 {
 	addTextureCoordinate(FLOAT2{ std::stof(tokens[0]), std::stof(tokens[1]) });
+}
+
+void GeometryLoader::printStatistics(const std::string& filename)
+{
+	std::cout << "loaded " << filename << ": vertices = " << vertices.size()
+		<< ", indexes = " << indices.size() << ", normals = " << normals.size()
+		<< ", textureCoordinates = " << textureCoordinates.size() << std::endl;
 }
 
 void GeometryLoader::addVertex(FLOAT3 vertex)

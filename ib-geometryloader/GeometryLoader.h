@@ -51,6 +51,7 @@ private:
 	void addNormalIndex(short normalIndex);
 	void addTextureIndex(short normalIndex);
 	EKeyword translate(std::string keyword);
+	void printStatistics(const std::string& filename);
 private:
 	std::vector<FLOAT3> vertices;
 	std::vector<FLOAT3> normals;
