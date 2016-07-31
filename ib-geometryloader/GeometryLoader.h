@@ -22,7 +22,7 @@ class GeometryLoader : public IGeometryLoader
 public:
 	GeometryLoader();
 	~GeometryLoader();
-	virtual void loadFromFile(std::string filename);
+	virtual void loadFromFile(const std::string& filename);
 	void printVertices();
 	void printNormals();
 	void printIndices();

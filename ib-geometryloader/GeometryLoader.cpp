@@ -15,7 +15,7 @@ GeometryLoader::~GeometryLoader()
 {
 }
 
-void GeometryLoader::loadFromFile(std::string filename)
+void GeometryLoader::loadFromFile(const std::string& filename)
 {
 	std::string line;
 	std::ifstream objFile(filename);

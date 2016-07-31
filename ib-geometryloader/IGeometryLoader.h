@@ -38,7 +38,7 @@ std::ostream& operator<<(std::ostream& os, const FLOAT2& f)
 class IB_GEOMETRYLOADER_API IGeometryLoader
 {
 public:
-	virtual void loadFromFile(std::string filename) = 0;
+	virtual void loadFromFile(const std::string& filename) = 0;
 	virtual void parse(std::string& input) = 0;
 	virtual int getNumOfVertices() = 0;
 	virtual int getNumOfNormals() = 0;
