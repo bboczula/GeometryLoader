@@ -20,17 +20,22 @@ void GeometryLoader::loadFromFile(const std::string& filename)
 	std::ifstream objFile(filename);
 	if (objFile.is_open())
 	{
-		std::string line;
-		while (std::getline(objFile, line))
-		{
-			parse(line);
-		}
+		processFile(objFile);
 		objFile.close();
 		printStatistics(filename);
 	}
 	else
 	{
 		std::cout << "ERROR: cannot open a file\n";
+	}
+}
+
+void GeometryLoader::processFile(std::ifstream & handle)
+{
+	std::string line;
+	while (std::getline(handle, line))
+	{
+		parse(line);
 	}
 }
 
@@ -72,12 +77,13 @@ void GeometryLoader::parse(std::string& input)
 		break;
 	case EKeyword::TEXCOORD:
 		textureHandler(tokens);
+		break;
 	default:
 		break;
 	}
 }
 
-EKeyword GeometryLoader::translate(std::string keyword)
+EKeyword GeometryLoader::translate(const std::string& keyword)
 {
 	if (keyword.compare("v") == 0)
 		return EKeyword::VERTEX;
@@ -90,7 +96,7 @@ EKeyword GeometryLoader::translate(std::string keyword)
 	return EKeyword::UNDEFINED;
 }
 
-void GeometryLoader::faceHandler(std::vector<std::string>& tokens)
+void GeometryLoader::faceHandler(const std::vector<std::string>& tokens)
 {
 	const int MIN_NUM_OF_INDICES{ 3 };
 	const int MAX_NUM_OF_INDICES{ 4 };
@@ -117,7 +123,7 @@ void GeometryLoader::faceHandler(std::vector<std::string>& tokens)
 	}
 }
 
-void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
+void GeometryLoader::tripletHandler(const std::vector<std::string>& triplets)
 {
 	std::vector<std::string> vertexIndex;
 	std::vector<std::string> normalIndex;
@@ -204,17 +210,17 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 	}
 }
 
-void GeometryLoader::vertexHandler(std::vector<std::string>& tokens)
+void GeometryLoader::vertexHandler(const std::vector<std::string>& tokens)
 {
 	addVertex(FLOAT3{ std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2]) });
 }
 
-void GeometryLoader::normalHandler(std::vector<std::string>& tokens)
+void GeometryLoader::normalHandler(const std::vector<std::string>& tokens)
 {
 	addNormal(FLOAT3{ std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2]) });
 }
 
-void GeometryLoader::textureHandler(std::vector<std::string>& tokens)
+void GeometryLoader::textureHandler(const std::vector<std::string>& tokens)
 {
 	addTextureCoordinate(FLOAT2{ std::stof(tokens[0]), std::stof(tokens[1]) });
 }

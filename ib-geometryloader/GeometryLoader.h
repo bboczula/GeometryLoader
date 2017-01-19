@@ -39,19 +39,20 @@ public:
 	virtual int textureIndexAt(int i);
 	virtual FLOAT2 texCoordAt(int i);
 private:
-	void faceHandler(std::vector<std::string>& tokens);
-	void tripletHandler(std::vector<std::string> triplets);
-	void vertexHandler(std::vector<std::string>& tokens);
-	void normalHandler(std::vector<std::string>& tokens);
-	void textureHandler(std::vector<std::string>& tokens);
+	void faceHandler(const std::vector<std::string>& tokens);
+	void tripletHandler(const std::vector<std::string>& triplets);
+	void vertexHandler(const std::vector<std::string>& tokens);
+	void normalHandler(const std::vector<std::string>& tokens);
+	void textureHandler(const std::vector<std::string>& tokens);
 	void addVertex(FLOAT3 vertex);
 	void addNormal(FLOAT3 normal);
 	void addTextureCoordinate(FLOAT2 texCoord);
 	void addIndex(short index);
 	void addNormalIndex(short normalIndex);
 	void addTextureIndex(short normalIndex);
-	EKeyword translate(std::string keyword);
+	EKeyword translate(const std::string & keyword);
 	void printStatistics(const std::string& filename);
+	void processFile(std::ifstream& handle);
 private:
 	std::vector<FLOAT3> vertices;
 	std::vector<FLOAT3> normals;
