@@ -1,0 +1,13 @@
+﻿  stdafx.cpp
+  unittest1.cpp
+c:\users\perf\source\repos\geometryloader\ib-geometryloader-test\unittest1.cpp(114): warning C4018: '<': signed/unsigned mismatch
+c:\users\perf\source\repos\geometryloader\ib-geometryloader-test\unittest1.cpp(128): warning C4018: '<': signed/unsigned mismatch
+c:\users\perf\source\repos\geometryloader\ib-geometryloader-test\unittest1.cpp(149): warning C4018: '<': signed/unsigned mismatch
+c:\users\perf\source\repos\geometryloader\ib-geometryloader-test\unittest1.cpp(172): warning C4018: '<': signed/unsigned mismatch
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     Creating library C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-test.lib and object C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-test.exp
+  Generating code
+  All 365 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  ib-geometryloader-test.vcxproj -> C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-test.dll
+  ib-geometryloader-test.vcxproj -> C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-test.pdb (Full PDB)

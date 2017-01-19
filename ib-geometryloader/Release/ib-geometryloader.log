@@ -1,0 +1,9 @@
+﻿  GeometryLoader.cpp
+     Creating library C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-r.lib and object C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-r.exp
+  Generating code
+  2 of 553 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ib-geometryloader.vcxproj -> C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-r.dll
+  ib-geometryloader.vcxproj -> C:\Users\Perf\Source\Repos\GeometryLoader\Release\ib-geometryloader-r.pdb (Full PDB)

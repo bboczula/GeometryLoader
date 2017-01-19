@@ -17,16 +17,16 @@ GeometryLoader::~GeometryLoader()
 
 void GeometryLoader::loadFromFile(const std::string& filename)
 {
-	std::string line;
 	std::ifstream objFile(filename);
 	if (objFile.is_open())
 	{
+		std::string line;
 		while (std::getline(objFile, line))
 		{
 			parse(line);
 		}
-		printStatistics(filename);
 		objFile.close();
+		printStatistics(filename);
 	}
 	else
 	{
@@ -43,7 +43,9 @@ void GeometryLoader::parse(std::string& input)
 	stream >> keyword;
 
 	if (keyword.compare("#") == 0)
+	{
 		return;
+	}
 
 	// 2. Prepare tokens
 	std::vector<std::string> tokens;
@@ -90,13 +92,16 @@ EKeyword GeometryLoader::translate(std::string keyword)
 
 void GeometryLoader::faceHandler(std::vector<std::string>& tokens)
 {
+	const int MIN_NUM_OF_INDICES{ 3 };
+	const int MAX_NUM_OF_INDICES{ 4 };
+
 	int numOfIndices = tokens.size();
-	if (numOfIndices < 3)
+	if (numOfIndices < MIN_NUM_OF_INDICES)
 	{
 		std::cout << "ERROR: to few indices (" << numOfIndices << ") !!!" << std::endl;
 		return;
 	}
-	if (numOfIndices > 4)
+	if (numOfIndices > MAX_NUM_OF_INDICES)
 	{
 		std::cout << "WARNING: a face is a complex plygon (" << numOfIndices << ")." << std::endl;
 		return;
@@ -114,9 +119,6 @@ void GeometryLoader::faceHandler(std::vector<std::string>& tokens)
 
 void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 {
-	int numOfSlashes;
-	std::vector<std::size_t> indexPosition;
-	std::vector<std::size_t> texturePosition;
 	std::vector<std::string> vertexIndex;
 	std::vector<std::string> normalIndex;
 	std::vector<std::string> textureIndex;
@@ -137,7 +139,8 @@ void GeometryLoader::tripletHandler(std::vector<std::string> triplets)
 
 			std::string temp;
 			std::vector<std::string> another;
-			another.reserve(3);
+			const int CHUNK_SIZE{ 3 };
+			another.reserve(CHUNK_SIZE);
 			while (std::getline(tripletStream, temp, '/'))
 			{
 				another.push_back(temp);
